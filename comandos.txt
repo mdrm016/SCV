@@ -1,0 +1,7 @@
+git init --crea el repo local
+
+git add *.*
+
+git commit -m "preimer commit"
+
+git pushorigin master
