@@ -1,0 +1,9 @@
+#footer {
+position: relative;
+margin-top: 500px; /* altura en px del footer con valor negativo */
+height: 50px; /* Altura del Footer en px*/
+clear: both;
+background: #FFF;
+text-align: center;
+color: #000; 
+}

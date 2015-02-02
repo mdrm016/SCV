@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>{% block title %}{% endblock %}</title>
+        <!-- Bootstrap -->
+        <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet" media="screen">
+       	<link href="{{STATIC_URL}}css/estilos.css" rel="stylesheet" media="screen">
+		<script type="text/javascript" src="{{STATIC_URL}}js/jquery.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/bootstrap.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/funcionesJavascript.js"></script>
+		<!-- Fin de la cabecera -->
+	</head>
+
+	<body>
+		<div class="container">
+			<div id="banner">
+				<img src="{{STATIC_URL}}imagenes/banner.png" alt="SVM" width="1140" height="130" border="0">
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<nav class="navbar navbar-inverse">
+	
+					  <div class="container-fluid">
+					    <!-- Brand and toggle get grouped for better mobile display -->
+					    <div class="navbar-header">
+					      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					      </button>
+					      <a class="navbar-brand" href="#">SCV</a>
+					    </div>
+	
+					    <!-- Collect the nav links, forms, and other content for toggling -->
+					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					      <ul class="nav navbar-nav">
+					        <li class="{% if inicio %}active{% endif %}"><a href="/index/">Inicio <span class="sr-only">(current)</span></a></li>
+					        <li class="{% if tarjetas %}active{% endif %}"><a href="#">Tarjetas</a></li>
+					        <li class="dropdown {% if informes %}active{% endif %}">
+					          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Informes <span class="caret"></span></a>
+					          <ul class="dropdown-menu" role="menu">
+					            <li><a href="#">Actividad</a></li>
+					            <li><a href="#">Clientes</a></li>
+					            <li><a href="#">Empleados</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#">Mercaderias</a></li>
+					            <li class="divider"></li>
+					            <li><a href="#">Contabilidad</a></li>
+					          </ul>
+					        </li>
+					      </ul>
+					      <form class="navbar-form navbar-left" role="search">
+					        <div class="form-group">
+					          <input type="text" class="form-control" placeholder="Clientes, Mercaderias, Empleados o Tarjetas...">
+					        </div>
+					        <button type="submit" class="btn btn-primary">Buscar <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+					      </form>
+					      <ul class="nav navbar-nav navbar-right">
+					      	<li><a href="#">{{ user.username | capfirst }}</a></li>
+					        <li><a href="/cerrar/">Salir</a></li>
+					        <li class="dropdown {% if registro %}active{% endif %}">
+					          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Registro <span class="caret"></span></a>
+					          <ul class="dropdown-menu" role="menu">
+					            <li><a href="#">Controladores</a></li>
+					            <li><a href="#">Cobradores</a></li>
+					            <li><a href="#">Verificadores</a></li>
+					            <li><a href="#">Vendedores</a></li>
+					            <li class="divider"></li>
+					            <li><a href="/roles/">Roles</a></li>
+					            <li><a href="/permisos/">Permisos</a></li>
+					          </ul>
+					        </li>
+					      </ul>
+					    </div><!-- /.navbar-collapse -->
+					  </div><!-- /.container-fluid -->
+					</nav>
+					{% block content %}
+	    			{% endblock %}
+					<footer>
+						<div id="footer" class="row">
+						  <div class="col-md-6">
+						  	<address>
+							  	<strong>Comercial "Victor"</strong><br>
+							  	<strong>Celular: </strong>0981 - 606 976<br>
+							  	<strong>Dirección: </strong>Itaugua - Guayibity
+							 </address>
+						  </div>
+						  <div class="col-md-6">
+						  	<address>
+							  	<strong>Desarrollo: </strong>Marcelo Denis<br>
+							  	<strong>Celular: </strong>0981 - 491 322<br>
+							  	<strong>Email: </strong><a href="mailto:marcelodenismeza@outlook.com"><em>marcelodenismeza@outlook.com</em></a>
+							</address>
+						  </div>
+						</div>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+</html>
+
+
+

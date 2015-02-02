@@ -1,0 +1,51 @@
+<form class="verPermiso-form" action="." method="POST">{% csrf_token %}
+	<div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="exampleModalLabel">Ver Permiso</h4>
+	      </div>
+	      <div class="modal-body">
+				  <div class="input-group">
+				  <span class="input-group-addon"><strong>Nombre</strong></span>
+				  <input
+					type="text"
+					name="nombre"
+					class="form-control"
+					value="{{ permiso.nombre }}"
+					disabled>
+				  </div>
+	      </div>
+	      <div class="modal-footer">
+		  <button type="button" class="btn btn-success" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>
+	      </div>
+	    </div>
+	</div>
+</form>
+
+<script>
+$('.VerPermiso-form').on('submit', function() {
+    $.ajax({ 
+        type: $(this).attr('method'), 
+        url: '{{url}}', 
+        data: $(this).serialize(),
+        context: this,
+        success: function(data, textStatus) {
+        	index = data.indexOf('<script>')
+        	data_slice = data.slice(0,index)
+        	if ( data_slice.search('<label id="formErrors">') != -1 ){
+        		$('#modalVerPermisos').html(data);
+        	}
+        	else{
+        		$('#verPermiso').modal('hide')
+        		index = data.indexOf('<!-- Inicio del cuerpo -->')
+        		data_slice = data.slice(index)
+        		index = data_slice.indexOf('<!-- Fin del cuerpo -->')
+        		data_slice = data_slice.slice(0, index)
+        		$('#inicio').html(data_slice);
+        	} 
+        }
+    });
+    return false;
+});
+</script>

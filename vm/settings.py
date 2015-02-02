@@ -1,0 +1,125 @@
+"""
+Django settings for vm project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.7/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.7/ref/settings/
+"""
+from unipath import Path
+RUTA_PROYECTO=Path(__file__).ancestor(2)
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'l_#-o*+p$ah9%3vjo=sd^#gsa=)rrr(td51(3bx&b&2i_6ppoo'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'apps.inicio',
+    'apps.usuarios',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'vm.urls'
+
+WSGI_APPLICATION = 'vm.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vm',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+# Internationalization
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
+
+LANGUAGE_CODE = 'es-py'
+
+TIME_ZONE = 'America/Asuncion'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.7/howto/static-files/
+
+STATIC_URL = '/estaticos/'
+
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    RUTA_PROYECTO.child('estaticos'),
+ 
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+MEDIA_ROOT = RUTA_PROYECTO.child('media')
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://example.com/media/", "http://media.example.com/"
+
+MEDIA_URL = '/media/'
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/var/www/example.com/static/"
+
+TEMPLATE_DIRS = (
+    RUTA_PROYECTO.child('templates'),
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+from django.core.urlresolvers import reverse_lazy
+LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('inicio')
+LOGOUT_URL = reverse_lazy('logout')
+

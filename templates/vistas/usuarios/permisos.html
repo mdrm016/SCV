@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Permisos{% endblock %}
+
+{% block content %}
+<!-- Navegacion -->
+<ol class="breadcrumb">
+  <li>SCV</li>
+  <li><a href="/index/">Inicio</a></li>
+  <li class="active">Permisos</li>
+</ol>
+<!-- Fin de la navegacion -->
+
+<!-- Encabezado -->
+<div class="page-header">
+	<h1 id="titulo"><strong>Permisos</strong></h1>
+</div>
+<!-- Fin del encabezado -->
+
+<!-- Boton Crear -->
+<button type="button" class="btn btn-primary btn-lg" data-url="{{url}}" data-toggle="modal" data-target="#crearPermisos" style="float: right">Crear Permiso <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+<br><br><br>
+<!-- Fin del Boton Crear -->
+
+<div id='inicio'>
+	<!-- Inicio del cuerpo -->
+	<!-- Notificacion -->
+	{% if notificacion %}
+	<div class="alert {{tipo}} alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>{{abrev}}.</strong> {{notificacion}}
+	</div>
+	{% endif %}
+	<!-- Fin Notificacion -->
+	
+	{% if not elementos %}
+	<div id="radio" class="jumbotron">
+	  <div class="container">
+		  <div class="alert alert-warning" role="alert" align="center"><h3>No se han encontrado <strong>permisos</strong></h3></div>
+	  </div>
+	</div>
+	{% endif %}
+	
+	{% if elementos %}
+	<table class="table table-condensed table-bordered table-hover" id="tabla">
+		<tr class="active">
+			<td><h4><strong>#</strong></h4></td>
+			<td><h4><strong>Nombre</strong></h4></td>
+			<td><h4><strong>Opciones</strong></h4></td>
+		</tr>
+		{% for elemento in elementos %}
+		<tr>
+			<td><strong>{{ elemento.id }}</strong></td>
+			<td><strong>{{ elemento.nombre }}</strong></td>
+			<td>
+				<button class="btn btn-info" data-toggle="modal" data-target="#verPermiso" data-id="{{ elemento.id }}" data-pag="{{ pagina }}" role="button">Ver</button>
+				<button class="btn btn-warning" data-toggle="modal" data-target="#editarPermiso" data-id="{{ elemento.id }}" data-pag="{{ pagina }}" role="button">Editar</button>
+				<button class="btn btn-danger" id="permisos" data-toggle="modal" data-target="#eliminarPermiso" data-id="{{ elemento.id }}" data-pag="{{ pagina }}" data-nombre="{{elemento.nombre}}"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+		  	</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<br>
+	
+	<!-- Paginacion -->
+	<nav align="center">
+	  <ul class="pagination">
+	    <li class="{{anterior}}"><a href="{% ifnotequal ant infe %}/permisos/{{ant}}/{% endifnotequal %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+	    {% for num in paginas %}
+	    <li class="{% ifequal num pagina %}active{% endifequal %}"><a href="{% ifnotequal num pagina %}/permisos/{{num}}/{% endifnotequal %}">{{num}}<span class="sr-only">(current)</span></a></li>
+	    {% endfor %}
+	    <li class="{{siguiente}}"><a href="{% ifnotequal sig supe %}/permisos/{{sig}}/{% endifnotequal %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+	  </ul>
+	</nav>
+	<!-- Fin Paginacion -->
+	{% endif %}
+</div>
+<!-- Fin del cuerpo -->
+
+<!-- Inicio de los Modalales -->
+<div class="modal fade" id="crearPermisos" tabindex="-1" role="dialog" aria-labelledby="formPermisosLabel" aria-hidden="true">
+	<div id="modalPermisos">
+	</div>
+</div>
+
+<div class="modal fade" id="editarPermiso" tabindex="-1" role="dialog" aria-labelledby="editarPermisosLabel" aria-hidden="true">
+  <div id="modalEditarPermisos">
+  </div>
+</div>
+
+<div class="modal fade" id="verPermiso" tabindex="-1" role="dialog" aria-labelledby="verPermisosLabel" aria-hidden="true">
+  <div id="modalVerPermisos">
+  </div>
+</div>
+
+<div class="modal fade" id="eliminarPermiso" tabindex="-1" role="dialog" aria-labelledby="eliminarPermisoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="eliminarPermisoLabel">Eliminar</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      	<button id="eliminarPermisoButton" data-url="" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fin de los Modalales -->
+{% endblock %}

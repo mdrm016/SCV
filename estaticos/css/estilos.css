@@ -1,0 +1,36 @@
+#footer {
+position: relative;
+margin-top: 0px; 
+margin-right: 5px;
+margin-left: 5px;
+margin-bottom: 5px;
+height: 65px; 
+background: #aaa;
+text-align: center;
+color: #000; 
+border-radius: 25px;
+}
+
+
+body{
+	background-color: #666;
+}
+ #radio{
+ 	border-radius: 30px;
+ }
+  #titulo{
+ 	color: #FFF; 
+ }
+ 
+#requerido{
+ 	color: red; 
+ }
+ 
+ #tabla{
+	 text-align: center;
+	 margin: auto; 
+ }
+ 
+ #formErrors{
+ 	color: #980000;
+ }

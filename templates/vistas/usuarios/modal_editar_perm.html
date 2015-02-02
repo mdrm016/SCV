@@ -1,0 +1,60 @@
+<form class="editarPermiso-form" action="." method="POST">{% csrf_token %}
+	<div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="exampleModalLabel">Editar Permiso</h4>
+	      </div>
+	      <div class="modal-body">
+				  {% if form.nombre.errors %}
+						<label id="formErrors">{{ form.nombre.errors }}</label>		  
+				  {% endif %}
+				  <div class="input-group">
+				  <span class="input-group-addon"><strong><strong id="requerido">*</strong> Nombre</strong></span>
+				  <input
+					type="text"
+					name="nombre"
+					class="form-control"
+					for="id_nombre"
+					id="id_nombre"
+					maxlength="30"
+					value="{{ permiso.nombre }}"
+					popover=""
+					popover-trigger="focus"
+					required>
+				  </div>
+	      </div>
+	      <div class="modal-footer">
+	      <input class="btn btn-success" type="submit" value="Editar Permiso"/>
+		  <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+	      </div>
+	    </div>
+	</div>
+</form>
+
+<script>
+$('.editarPermiso-form').on('submit', function() {
+    $.ajax({ 
+        type: $(this).attr('method'), 
+        url: '{{url}}', 
+        data: $(this).serialize(),
+        context: this,
+        success: function(data, textStatus) {
+        	index = data.indexOf('<script>')
+        	data_slice = data.slice(0,index)
+        	if ( data_slice.search('<label id="formErrors">') != -1 ){
+        		$('#modalEditarPermisos').html(data);
+        	}
+        	else{
+        		$('#editarPermiso').modal('hide')
+        		index = data.indexOf('<!-- Inicio del cuerpo -->')
+        		data_slice = data.slice(index)
+        		index = data_slice.indexOf('<!-- Fin del cuerpo -->')
+        		data_slice = data_slice.slice(0, index)
+        		$('#inicio').html(data_slice);
+        	} 
+        }
+    });
+    return false;
+});
+</script>
